@@ -1,7 +1,7 @@
 # Code Understanding Journal
 ---
 # Exercise: Codebase Exploration Challenge
-## 7. Part 1 — Understanding a Specific Feature: Task Creation & Status Updates
+## Part 1 — Understanding a Specific Feature: Task Creation & Status Updates
 
 **Prompt used:** "Prompt 1: Understand how a specific feature works"
 
@@ -64,7 +64,7 @@ cli.py main() → args.command == "status"   [cli.py:107]
 
 ---
 
-## 8. Part 2 — Deepen Understanding: Task Prioritization System
+## Part 2 — Deepen Understanding: Task Prioritization System
 
 **Prompt used:** "Prompt 2: Deepen understanding of a codebase" (guided-questioning / pair-programming style).
 
@@ -93,7 +93,7 @@ cli.py main() → args.command == "status"   [cli.py:107]
 
 ---
 
-## 9. Part 3 — Mapping Data Flow: Marking a Task as Complete
+## Part 3 — Mapping Data Flow: Marking a Task as Complete
 
 **Prompt used:** "Prompt 3: Mapping Data Flow and State Management"
 
