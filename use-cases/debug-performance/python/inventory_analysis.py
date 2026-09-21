@@ -14,32 +14,32 @@ def find_product_combinations(products, target_price, price_margin=10):
     """
     results = []
 
-    # For each possible pair of products
-    for i in range(len(products)):
+    # Work with plain prices instead of repeated dict lookups on every iteration
+    prices = [product['price'] for product in products]
+    low = target_price - price_margin
+    high = target_price + price_margin
+    n = len(products)
+
+    # Each unordered pair is visited exactly once (j starts at i+1), which
+    # removes the O(len(results)) duplicate scan and halves the work.
+    for i in range(n - 1):
         if i % 100 == 0:
-            print(f"Processing product {i+1} of {len(products)}")
-        for j in range(len(products)):
-            # Skip comparing a product with itself
-            if i != j:
-                product1 = products[i]
-                product2 = products[j]
-
-                # Calculate combined price
-                combined_price = product1['price'] + product2['price']
-
-                # Check if the combined price is within the target range
-                if (target_price - price_margin) <= combined_price <= (target_price + price_margin):
-                    # Avoid duplicates like (product1, product2) and (product2, product1)
-                    if not any(r['product1']['id'] == product2['id'] and
-                               r['product2']['id'] == product1['id'] for r in results):
-
-                        pair = {
-                            'product1': product1,
-                            'product2': product2,
-                            'combined_price': combined_price,
-                            'price_difference': abs(target_price - combined_price)
-                        }
-                        results.append(pair)
+            print(f"Processing product {i+1} of {n}")
+        product1 = products[i]
+        price1 = prices[i]
+        min_partner = low - price1
+        max_partner = high - price1
+        for j in range(i + 1, n):
+            price2 = prices[j]
+            # Equivalent to (target_price - margin) <= price1 + price2 <= (target_price + margin)
+            if min_partner <= price2 <= max_partner:
+                combined_price = price1 + price2
+                results.append({
+                    'product1': product1,
+                    'product2': products[j],
+                    'combined_price': combined_price,
+                    'price_difference': abs(target_price - combined_price)
+                })
 
     # Sort by price difference from target
     results.sort(key=lambda x: x['price_difference'])
