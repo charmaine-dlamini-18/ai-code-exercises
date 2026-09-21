@@ -37,6 +37,7 @@ class TaskDecoder(json.JSONDecoder):
                 task.due_date = datetime.fromisoformat(obj['due_date'])
 
             task.tags = obj.get('tags', [])
+            task.assigned_to = obj.get('assigned_to', None)
             return task
         return obj
 
