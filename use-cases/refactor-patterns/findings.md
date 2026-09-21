@@ -91,5 +91,3 @@ Key design decisions:
 The most important realization from this exercise: the pattern payoff is **when a branch** (`if db_type == ...`) **mirrors a family of types** (MySQL, PostgreSQL, MongoDB, Redis). Turning that one-to-many condition into a factory-to-products relationship moves the "which one?" decision to a single registration point, so future databases don't require touching existing code - the maintainability win the README's exercise was designed to demonstrate.
 
 The trickiest part was preserving **behaviour*, not just tests**: the unsupported-type `ValueError` must be raised by `connect()` (the facade delegates lazily), the printed output must be byte-identical (verified differentially), and even the return value (`None`) and the `.connection` attribute had to match. A naive "factory that raises in `__init__`" would have silently broken `test_unsupported_database_type`.
-
-Not committed - let me know if you want me to push it.
